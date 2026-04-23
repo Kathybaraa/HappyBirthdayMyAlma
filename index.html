@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alma's Birthday Blog</title>
+  <style>
+    :root {
+      --pink: #ff9fd6;
+      --hot-pink: #ff4fb3;
+      --lavender: #d8c2ff;
+      --blue: #bfe7ff;
+      --cream: #fffafc;
+      --text: #4b2b46;
+      --white: #ffffff;
+      --shadow: 0 0 0 2px #ffffff, 0 0 0 5px #ff8ccc, 6px 6px 0 #ffd4ec;
+      --grid: rgba(255, 255, 255, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Trebuchet MS', Verdana, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.08)),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0,
+          transparent 31px,
+          var(--grid) 32px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 31px,
+          var(--grid) 32px
+        ),
+        linear-gradient(135deg, #ffd9f2, #d6c8ff 45%, #c2ebff 100%);
+      min-height: 100vh;
+    }
+
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      background-image:
+        radial-gradient(circle at 10% 20%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 15%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 65% 35%, #fff 0 1.5px, transparent 3px),
+        radial-gradient(circle at 20% 70%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 90% 80%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 35% 90%, #fff 0 1.5px, transparent 3px);
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, calc(100% - 32px));
+      margin: 24px auto 48px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,252,0.95));
+      border: 3px solid var(--white);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 26px 20px;
+      text-align: center;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before,
+    .header::after {
+      content: "✦ ✩ ✦";
+      position: absolute;
+      top: 12px;
+      font-size: 18px;
+      color: var(--hot-pink);
+      letter-spacing: 6px;
+    }
+
+    .header::before { left: 18px; }
+    .header::after { right: 18px; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 1;
+      color: var(--hot-pink);
+      text-shadow: 2px 2px 0 #fff, 4px 4px 0 #ffc6e8;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      margin: 14px auto 0;
+      max-width: 720px;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.8);
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 2px solid #ffd0eb;
+      display: inline-block;
+    }
+
+    .blink {
+      animation: blink 1.2s steps(1) infinite;
+      font-weight: bold;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.4; }
+    }
+
+    .marquee-box {
+      margin: 0 0 26px;
+      background: #fff7fc;
+      border: 3px solid #fff;
+      box-shadow: var(--shadow);
+      border-radius: 20px;
+      padding: 10px;
+    }
+
+    marquee {
+      color: var(--hot-pink);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .blog-list {
+      display: grid;
+      gap: 22px;
+    }
+
+    .post {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 18px;
+      align-items: stretch;
+      background: rgba(255, 250, 252, 0.92);
+      border: 3px solid var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .photo-frame {
+      background: linear-gradient(180deg, #fff, #ffe8f6);
+      border: 2px solid #ffb5df;
+      border-radius: 20px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid #fff;
+      display: block;
+      background: linear-gradient(135deg, #ffdff1, #d8d1ff, #c7eeff);
+    }
+
+    .photo-label {
+      text-align: center;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 2px dashed #ff9dd2;
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--hot-pink);
+      font-weight: bold;
+    }
+
+    .text-box {
+      background: linear-gradient(180deg, #ffffff, #fff4fb);
+      border: 2px solid #ffc0e4;
+      border-radius: 20px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+      position: relative;
+    }
+
+    .text-box::before {
+      content: "♡ online diary entry ♡";
+      position: absolute;
+      top: -11px;
+      left: 18px;
+      background: #fff0f8;
+      border: 2px solid #ffb8de;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.74rem;
+      color: var(--hot-pink);
+      font-weight: bold;
+    }
+
+    .text-box h2 {
+      margin: 10px 0 12px;
+      font-size: 1.45rem;
+      color: #db2f98;
+      letter-spacing: 0.5px;
+    }
+
+    .text-box p {
+      margin: 0;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      background: rgba(255,255,255,0.88);
+      border: 3px solid #fff;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      font-size: 0.95rem;
+    }
+
+    .footer span {
+      color: var(--hot-pink);
+      font-weight: bold;
+    }
+
+    @media (max-width: 780px) {
+      .post {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-frame img {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles"></div>
+
+  <div class="wrapper">
+    <header class="header">
+      <h1>Happy Birthday Alma!</h1>
+      <div class="subtitle">
+        A webite for my baby from Kathy🤍 <span class="blink">★</span>
+      </div>
+    </header>
+
+    <div class="marquee-box">
+      <marquee behavior="scroll" direction="left">
+        ☆ welcome to alma's birthday page ☆ Only Love Included ☆
+      </marquee>
+    </div>
+
+    <main class="blog-list">
+      <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/1274544720.jpg" alt="Photo 1 of Alma" />
+          <div class="https://cdn.corenexis.com/files/c/1274544720.jpg">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+            alma gen one of the best people i met shes so kind and really caring and i never found a real friend like her 
+always nice to everyone and forgives everyone even sum niggas dont deserve it and always tried to make me
+feel better when i was sad or upset oqxm shes the best person ever and i hope sumone could be by her side 
+do the same things she does to us people should be like alma and i hope alma have a blast with you guys i wish 
+i was there in egypt to celebrate with yall but inshallah next 3mtn happy birthday ya alma and ur the best hg ever🤍🤍
+          </p>
+        </div>
+      </section>
+
+      <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/8856484720.jpg" alt="Photo 2 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+            HAPPY BIRTHDAYYYY ALMAAAAA
+HONESTLY SHES REALLY CUTE AND SOOO KIND EVERYTHING SHE DOES IS CUTE I LOVE HER ENERGY SO MUCH I FEEL LIKE WHEREVER SHE 
+GOES SHE BRINGS SUNSHINE W HER SHES SOO CUTE🥹EVERYTHING ABOUT HER IS LITERALLY GORGEOUS HER LOOKS HER ENERGY HER 
+PERSONALITY I HOPE SHE ALWAYS STAYS LIKE THIS BCS I LOVE HER SOO MUCH I HOPE EVERY YEAR SHE BECOMES MORE HAPPIER AND 
+HAPPIER AND ACHIEVES EVERYTHING SHE DREAMS OF BCS SHE TRULY DESERVES IT I LOVEE HER SOOOOO MUCHHHHH😚🥹
+          </p>
+        </div>
+      </section>
+
+      <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/3146488720.jpg" alt="Photo 3 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+happy birthday ti my forever twin sister n birthday twin I love you so much aloumy u mean the world to me from the second we met we had instantly clicked in forever greatful for you and I’ll always always be here for you no matter what 💞
+          </p>
+        </div>
+      </section>
+
+      <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/8272658720.jpg" alt="Photo 4 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>happy birthday baby. i hope you 15 treats well and i hope we stay very close 
+forever cs i dont want to lose you okay? 
+          </p>
+        </div>
+      </section>
+
+      <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/9183654720.jpg" alt="Photo 5 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>i dont want to be gay about it but Youre the person I can be completely honest with,
+ i like having weird talks with you, i love cooking with you and i genuinely love you as a whole. 
+Youre the type that no matter how much I’ve known you you just keep getting more interesting
+ and I’ve genuinely thought about ditching my future, my college savings and just buy a house with you 
+(omg that sounds so lesbian) You understand me in a way that most people don’t even try to, and that makes me 
+feel loved in a way i cant even explain, sometimes i just cant think of losing you i genuinely wish we never 
+distanced that time from 2020 all because of a shit as friend group
+          </p>
+        </div>
+      </section>
+
+      <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/1232452720.jpg" alt="Photo 6 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+          Kolo sana wenta tayeb ya alma im not thankful enough for you helping settle in egypt and i cherish
+ our moments and im really thankful for you and to more memories and more life enjoy 16❤️🎈
+          </p>
+        </div>
+      </section>
+ 
+   <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/3989718720.jpg" alt="Photo 6 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+            Happy birthday alma 7ayati i hope you enjoy your bday you're genuinely one of my fav people ever 
+and i cant ask for a better friend than you im proud of you and im proud that you try your best no matter how 
+hard it gets I love you a lot loomy hope you have an amazing birthdayaag
+          </p>
+        </div>
+      </section>
+
+   <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/2376445720.jpg" alt="Photo 6 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+            Happy birthday alma you have been with me through ups n downs rlly appreciate you being in my life thank you fir everything glad to have you as my best friend you deserve all the best keep being crazy and dumb enjoy you’re day twin
+          </p>
+        </div>
+      </section>
+
+   <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/3148314720.jpg" alt="Photo 6 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+            HAPPPY BIRTHDAYY ALMAA you’re genuinely one of the sweetest and nicest people ive met yes you can be mean sometimes but im so grateful that we bonded really fast and became close and youre literally my comfort person genuinely never a dull moment around you and i enjoy everytime we hangout w i really miss our calls and us playing roblox 💔💔
+i love u so much twin youre so unfunny btwenjoy ur day to the fullest and dont let anyone ruin it for you hope this year tre
+          </p>
+        </div>
+      </section>
+
+   <section class="post">
+        <div class="photo-frame">
+          <img src="https://cdn.corenexis.com/files/c/3143454720.jpg" alt="Photo 6 of Alma" />
+          <div class="photo-label">🤍</div>
+        </div>
+        <div class="text-box">
+          <h2>anonymous🤍</h2>
+          <p>
+          happy birthday alma, i haven’t known you for this long but im so grateful i did we got really close in no time hrfyn 3o2bal million sana baa w happy 15th 🙏🙏🙏
+          </p>
+        </div>
+      </section>
+
+
+    </main>
+
+    <footer class="footer">
+      made with <span>♡</span> for alma's birthday — DM @Vodkathh If You Want to add your own Paragraph about alma
+    </footer>
+  </div>
+</body>
+</html>
